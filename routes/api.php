@@ -5,7 +5,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/user', function (Request $request) {
-    return $request->user();
+    return response()->json([
+        'message' => $request->user(),
+        200
+    ]);
+    //return $request->user();
 })->middleware('auth:sanctum');
 
 
