@@ -11,9 +11,9 @@ class LoginController extends Controller
     {
         if (Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
-                'message' => 'User authenticated successfully.',
+                'message' => 'User authenticated successfully.'],
                 200
-            ]);
+            );
         } else {
             return response()->json(['error' => 'Credentials do not match'], 422);
         }

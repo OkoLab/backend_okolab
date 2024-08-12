@@ -15,3 +15,5 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
+
+Route::get('/link', function (Request $request) { return response()->json(['message' => 'Link', 200]); })->middleware('auth:sanctum');
