@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\DevicesBoxSize;
 
 class DeviceBoxSizeController extends Controller
 {
@@ -11,7 +12,9 @@ class DeviceBoxSizeController extends Controller
      */
     public function index()
     {
-        //
+        //return response()->json('sasasaaas', 200);
+        $devicesBoxSizes = DevicesBoxSize::all();
+        return response()->json($devicesBoxSizes, 200);
     }
 
     /**
