@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\PackingBoxSize;
 
 class PackingBoxSizeController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
-    public function __invoke(Request $request)
+    public function index()
     {
-        //
+        $packingBoxSizes = PackingBoxSize::all();
+        return response()->json($packingBoxSizes, 200);
     }
 }
