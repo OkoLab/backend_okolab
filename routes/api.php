@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\DeviceBoxSizeController;
+use App\Http\Controllers\ItemSizeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PackingBoxSizeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +22,4 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/link', function (Request $request) { return response()->json(['message' => 'Link', 200]); })->middleware('auth:sanctum');
 
 Route::resource('deviceboxsizes', DeviceBoxSizeController::class);
+Route::get('/item_size', ItemSizeController::class);
