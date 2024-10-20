@@ -12,7 +12,6 @@ class DeviceBoxSizeController extends Controller
      */
     public function index()
     {
-        //return response()->json('sasasaaas', 200);
         $devicesBoxSizes = DevicesBoxSize::all();
         return response()->json($devicesBoxSizes, 200);
     }
