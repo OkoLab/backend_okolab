@@ -13,6 +13,6 @@ class ItemSizeController extends Controller
 
     public function __invoke(CalculateItemDimensions $calculateItemDimensions, Request $request)
     {
-        return $calculateItemDimensions->test;
+        //return $calculateItemDimensions->test;
     }
 }

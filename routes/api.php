@@ -21,5 +21,5 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('/link', function (Request $request) { return response()->json(['message' => 'Link', 200]); })->middleware('auth:sanctum');
 
-Route::resource('deviceboxsizes', DeviceBoxSizeController::class);
+Route::resource('/deviceboxsizes', DeviceBoxSizeController::class);
 Route::post('/item_size', ItemSizeController::class);
