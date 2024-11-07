@@ -1,5 +1,4 @@
 <?php
-
 class Dimensions {
     protected int $width, $height, $length;
     
