@@ -1,40 +1,34 @@
 <?php
 
+namespace App\Types;
+
 use App\Models\DevicesBoxSize;
+use Exception;
+
 
 class Product
 {
-    private $articul;
     private $quantity;
-
-    // Magic method to set the value of private properties
-    // public function __set($name, $value)
-    // {
-    //     if ($name === 'articul') {
-    //         $this->articul = $value;
-    //     } elseif ($name === 'quantity') {
-    //         if (is_numeric($value) && $value >= 0) {
-    //             $this->quantity = $value;
-    //         } else {
-    //             throw new InvalidArgumentException("Quantity must be a non-negative number.");
-    //         }
-    //     } else {
-    //         throw new Exception("Invalid property name: " . $name);
-    //     }
-    // }
 
     public function __get($name)
     {
-        if ($name === 'articul') {
-            if(DevicesBoxSize::where('article', $this->articul)->exists()) {
-                return $this->articul;
-            } else {
-                throw new Exception("Invalid articul: " . $this->articul);
-            }
-        } elseif ($name === 'quantity') {
+        if (DevicesBoxSize::where($name, $this->articul)->exists()) {
             return $this->quantity;
         } else {
-            throw new Exception("Invalid property name: " . $name);
+            throw new Exception("Invalid articul: " . $this->articul);
+        }
+    }
+
+    public function __set($name, $value)
+    {
+        if (DevicesBoxSize::where($name, $this->articul)->exists()) {
+            if (is_numeric($value) && $value > 0 && $value <= 100) {
+                $this->quantity = $value;
+            } else {
+                throw new Exception("Quantity must be a non-negative number and > 0 and <= 100.");
+            }
+        } else {
+            throw new Exception("Invalid articul: " . $this->articul);
         }
     }
 }
