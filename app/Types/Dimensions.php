@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Types;
+
 class Dimensions {
     protected int $width, $height, $length;
     
