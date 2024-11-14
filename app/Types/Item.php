@@ -1,5 +1,6 @@
 <?php
 
+namespace App\Types;
 use App\Types\Dimensions;
 
 class Item extends Dimensions {

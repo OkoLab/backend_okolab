@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Types\Dimensions;
 use App\Types\Product;
+use App\Types\Item;
 use App\Models\DevicesBoxSize;
 use Exception;
 
@@ -33,7 +34,13 @@ class CalculateItemDimensions {
         $item_weight = ceil($sum_weight / $number_of_items) + 1;
 
 
+        $data_stub = [];
+        $data1 = new Item(45, 45, 25, 3);
+        $data2 = new Item(46, 46, 35, 5);
+        $data_stub[] = $data1;
+        $data_stub[] = $data2;
+        $json = json_encode($data_stub);
 
-        return $result;
+        return $json;
     }
 }
