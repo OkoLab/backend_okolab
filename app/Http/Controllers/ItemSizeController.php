@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\CalculateItemDimensions;
+use Illuminate\Support\Facades\Log;
 
 class ItemSizeController extends Controller
 {
@@ -14,6 +15,9 @@ class ItemSizeController extends Controller
     //public function __invoke(CalculateItemDimensions $calculateItemDimensions, Request $request)
     public function __invoke(Request $request, CalculateItemDimensions $calculateItemDimensions)
     {
+        $data = json_decode($request[0]);
+        $volume = $calculateItemDimensions->getTotalVolume($data);
+        Log::info($volume);
         return response()->json($request[0], 200);
     }
 
