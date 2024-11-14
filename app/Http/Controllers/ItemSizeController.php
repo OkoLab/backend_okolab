@@ -16,7 +16,7 @@ class ItemSizeController extends Controller
     public function __invoke(Request $request, CalculateItemDimensions $calculateItemDimensions)
     {
         $data = json_decode($request[0]);
-        $volume = $calculateItemDimensions->getTotalVolume($data);
+        $volume = $calculateItemDimensions->getTotalDimensions($data);
         Log::info($volume);
         return response()->json($request[0], 200);
     }

@@ -16,7 +16,7 @@ class CalculateItemDimensions {
         $this->default_box_size = new Dimensions(37, 21, 7);
     }
 
-    public function getTotalVolume(array $selected_product_articles): int {
+    public function getTotalDimensions(array $selected_product_articles): int {
         $sum_volume = 0;
         $sum_weight = 0;
         foreach ($selected_product_articles as $product_article) {
