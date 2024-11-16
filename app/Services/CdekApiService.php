@@ -7,15 +7,20 @@ use Illuminate\Http\Client\Response;
 
 class CdekApiService
 {
-    public function Authorization(): Response
-    {
-        $response = Http::withHeaders([
-            'grant_type' => 'client_credentials',
-        ])->post(env('CDEK_CLIENT'), [
-                    'client_id' => env('CDEK_CLIENT_ID'),
-                    'client_secret' => env('CDEK_CLIENT_SECRET')
-                ]);
+    private $token;
 
-        return $response;
+    public function __construct() {
+        $this->token = $this->Authorization();
+    }
+
+    public function Authorization(): string
+    {
+        $response = Http::asForm()->post(env('CDEK_CLIENT'), [
+            'grant_type' => 'client_credentials',
+            'client_id' => env('CDEK_CLIENT_ID'),
+            'client_secret' => env('CDEK_CLIENT_SECRET')
+        ]);
+
+        return $response['access_token'];
     }
 }
