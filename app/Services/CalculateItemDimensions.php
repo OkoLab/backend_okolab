@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Types\Dimensions;
-use App\Types\Product;
-use App\Types\Item;
 use App\Types\Parcel;
 use App\Models\DevicesBoxSize;
 use Exception;
@@ -17,12 +15,16 @@ class CalculateItemDimensions {
         $this->default_box_size = new Dimensions(37, 21, 7);
     }
 
+    // $selected_product_articles - [{"article": "колисечество оборудования"},{"2300":8}]
     public function getTotalDimensions(array $selected_product_articles): string {
         $sum_volume = 0;
         $sum_weight = 0;
         foreach ($selected_product_articles as $product_article) {
             foreach ($product_article as $article => $amount) {
                 $item = DevicesBoxSize::where('article', $article)->first();
+                if(!$item) {
+                    throw new Exception("Invalid articul: " . $article);
+                }
                 $volume = $item->length * $item->width * $item->height;
                 $sum_volume += $volume * $amount;
                 $sum_weight += $item->weight * $amount;
