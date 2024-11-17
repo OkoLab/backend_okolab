@@ -3,7 +3,7 @@
 namespace App\Types;
 
 class Dimensions {
-    protected int $width, $height, $length;
+    public int $width, $height, $length;
 
     public function __construct(int $width, int $height, int $length) {
         $this->width = $width;

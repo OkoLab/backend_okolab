@@ -32,7 +32,7 @@ class CdekApiService
         }
     }
 
-    public function locationSuggestCities($query)
+    public function locationSuggestCities($name)
     {
         try {
             $response = Http::withToken($this->token)->retry(2, 0, function (Exception $exception, PendingRequest $request) {
@@ -44,8 +44,9 @@ class CdekApiService
                 return true;
 
             })->get(env('CDEK_CLIENT') . '/location/suggest/cities', [
-                        'name' => $query
+                        'name' => $name
                     ]);
+
             return $response;
         } catch (Exception $e) {
             throw new Exception("Can't get cities suggest from CDEK service!");

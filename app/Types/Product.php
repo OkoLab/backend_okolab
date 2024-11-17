@@ -5,7 +5,6 @@ namespace App\Types;
 use App\Models\DevicesBoxSize;
 use Exception;
 
-
 class Product
 {
     private $quantity;

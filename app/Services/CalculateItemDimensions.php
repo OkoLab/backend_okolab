@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Types\Dimensions;
 use App\Types\Product;
 use App\Types\Item;
+use App\Types\Parcel;
 use App\Models\DevicesBoxSize;
 use Exception;
 
@@ -16,7 +17,7 @@ class CalculateItemDimensions {
         $this->default_box_size = new Dimensions(37, 21, 7);
     }
 
-    public function getTotalDimensions(array $selected_product_articles): int {
+    public function getTotalDimensions(array $selected_product_articles): string {
         $sum_volume = 0;
         $sum_weight = 0;
         foreach ($selected_product_articles as $product_article) {
@@ -30,16 +31,18 @@ class CalculateItemDimensions {
 
         $coefficient = ceil($sum_volume / $this->default_box_size->getVolume());
         $number_of_items = ceil($coefficient / 10);
+        $item_volume = ceil($sum_volume / $number_of_items);
+        $item_weight = ceil($sum_weight / $number_of_items) + 1000;
 
-        $item_weight = ceil($sum_weight / $number_of_items) + 1;
+        $side_size = ceil(pow($item_volume, 1/3));
 
+        $result = new Parcel($side_size, $side_size, $side_size, $item_weight, $number_of_items);
+        $json = json_encode($result);
 
-        $data_stub = [];
-        $data1 = new Item(45, 45, 25, 3);
-        $data2 = new Item(46, 46, 35, 5);
-        $data_stub[] = $data1;
-        $data_stub[] = $data2;
-        $json = json_encode($data_stub);
+        info('side_size: ' . $side_size);
+        info('number_of_items: ' . $number_of_items);
+        info('item_weight: ' . $item_weight);
+        info('json: ' . $json);
 
         return $json;
     }

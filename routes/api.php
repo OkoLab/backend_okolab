@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PackingBoxSizeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Services\CdekApiService;
 
 Route::get('/user', function (Request $request) {
     return response()->json([
@@ -22,7 +23,13 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/link', function (Request $request) { return response()->json(['message' => 'Link', 200]); })->middleware('auth:sanctum');
 
 Route::resource('/deviceboxsizes', DeviceBoxSizeController::class);
-Route::post('/item_size', ItemSizeController::class)->name('item_size')->middleware('auth:sanctum');
+Route::post('/item_size', ItemSizeController::class)->middleware('auth:sanctum');
+
+
+/** Cdek API */
+Route::get('/cities/{name}', [CdekApiService::class, 'locationSuggestCities']);
+
+
 
 // Route::get('/item_size', function (Request $request) {
 //     return response()->json('csdcdscdscdscdc', 200);
