@@ -17,7 +17,7 @@ class CalculateItemDimensions
         $this->default_box_size = new Dimensions(37, 21, 7);
     }
 
-    // $selected_product_articles - [{"article": "колисечество оборудования"},{"2300":8}]
+    // $selected_product_articles - {"article": "колисечество оборудования", },"2300":8}
     public function getTotalDimensions($selected_product_articles): string
     {
         $sum_volume = 0;
