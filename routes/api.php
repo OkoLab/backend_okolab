@@ -27,7 +27,8 @@ Route::post('/item_size', ItemSizeController::class)->middleware('auth:sanctum')
 
 
 /** Cdek API */
-Route::get('/cities/{name}', [CdekApiService::class, 'locationSuggestCities']);
+//Route::get('/location/suggest/cities?name={name}', [CdekApiService::class, 'locationSuggestCities']);
+Route::get('/location/suggest/cities', [CdekApiService::class, 'locationSuggestCities']);
 
 
 

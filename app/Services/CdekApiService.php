@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Request;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Client\PendingRequest;
@@ -32,9 +33,10 @@ class CdekApiService
         }
     }
 
-    public function locationSuggestCities($name)
+    public function locationSuggestCities(Request $request)
     {
         try {
+            $name = $request->query('name');
             $response = Http::withToken($this->token)->retry(2, 0, function (Exception $exception, PendingRequest $request) {
 
                 if (!$exception instanceof RequestException || $exception->response->status() !== 401) {
@@ -44,7 +46,8 @@ class CdekApiService
                 return true;
 
             })->get(env('CDEK_CLIENT') . '/location/suggest/cities', [
-                        'name' => $name
+                        'name' => $name,
+                        'country_code' => 'RU'
                     ]);
 
             return $response;
