@@ -4,18 +4,21 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
-use Illuminate\Http\Client\Response;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Client\PendingRequest;
+use App\Services\CalculateItemDimensions;
+use App\Types\Parcel;
 use Exception;
 
 class CdekApiService
 {
     private $token;
+    protected CalculateItemDimensions $calculateItemDimensions;
 
-    public function __construct()
+    public function __construct(CalculateItemDimensions $calculateItemDimensions)
     {
         $this->token = $this->getNewToken();
+        $this->calculateItemDimensions = $calculateItemDimensions;
     }
 
     public function getNewToken()
@@ -54,5 +57,91 @@ class CdekApiService
         } catch (Exception $e) {
             throw new Exception("Can't get cities suggest from CDEK service!");
         }
+    }
+
+    public function calculatorTariff(Request $request)
+    {
+        list($deviceAmount, $locations) = $this->splitDeviceAmountAndLocations($request->all());
+
+        /**
+         * @var Parcel $parcel
+         */
+        $parcel = $this->calculateItemDimensions->getTotalDimensions($deviceAmount);
+        $some_packages = [];
+
+        //$result = new Parcel($side_size, $side_size, $side_size, $item_weight, $number_of_items);
+        for ($i = 0; $i < $parcel->number; $i++) {
+            $package = [];
+            $package['length'] = $parcel->length;
+            $package['width'] = $parcel->width;
+            $package['height'] = $parcel->height;
+            $package['weight'] = $parcel->weight;
+            $some_packages[] = $package;
+        }
+
+        try {
+            $response = Http::withToken($this->token)->retry(2, 0, function (Exception $exception, PendingRequest $request) {
+
+                if (!$exception instanceof RequestException || $exception->response->status() !== 401) {
+                    return false;
+                }
+                $request->withToken($this->getNewToken());
+                return true;
+
+            })->post(env('CDEK_CLIENT') . '/calculator/tariff', [
+                        //'type' => 1,
+                        'tariff_code' => 139, // Посылка дверь-дверь
+                        'from_location' => [
+                            "code" => 270
+                            //"city" => "Москва"
+                        ],
+                        'to_location' => [
+                            "code" => 44
+                            //"city" => "Москва"
+                        ],
+                        "packages" => [
+                            [
+                                "height" => 10,
+                                "length" => 10,
+                                "weight" => 4000,
+                                "width" => 10
+                            ]
+                        ]
+
+                        // 'services' => [
+                        //     'code' => 1
+                        // ],
+                        //'packages' => $some_packages
+                    ]);
+
+            return $response;
+        } catch (Exception $e) {
+            throw new Exception("Can't get cities suggest from CDEK service!");
+        }
+
+        //return $locations;
+        // $volume = $calculateItemDimensions->getTotalDimensions($deviceAmount);
+        // $response = Http::withToken($this->token)->retry(2, 0, function (Exception $exception, PendingRequest $request) {
+
+        //     if (!$exception instanceof RequestException || $exception->response->status() !== 401) {
+        //         return false;
+        // }
+    }
+
+
+    private function splitDeviceAmountAndLocations($original): array
+    {
+        $deviceAmount = [];
+        $locations = [];
+
+        foreach ($original as $key => $value) {
+            if ('location_to' === $key || 'location_from' === $key) {
+                $locations[$key] = $value;
+            } else {
+                $deviceAmount[$key] = $value;
+            }
+        }
+
+        return [$deviceAmount, $locations];
     }
 }

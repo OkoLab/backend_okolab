@@ -18,13 +18,12 @@ class CalculateItemDimensions
     }
 
     // $selected_product_articles - {"article": "колисечество оборудования", },"2300":8}
-    public function getTotalDimensions($selected_product_articles): string
+    public function getTotalDimensions($selected_product_articles): Parcel
     {
         $sum_volume = 0;
         $sum_weight = 0;
         foreach ($selected_product_articles as $article => $amount) {
             $item = DevicesBoxSize::where('article', $article)->first();
-            info('item: ' . $item);
             if (!$item) {
                 throw new Exception("Invalid articul: " . $article);
             }
@@ -42,13 +41,13 @@ class CalculateItemDimensions
         $side_size = ceil(pow($item_volume, 1 / 3));
 
         $result = new Parcel($side_size, $side_size, $side_size, $item_weight, $number_of_items);
-        $json = json_encode($result);
+        //$json = json_encode($result);
 
         // info('side_size: ' . $side_size);
         // info('number_of_items: ' . $number_of_items);
         // info('item_weight: ' . $item_weight);
         // info('json: ' . $json);
 
-        return $json;
+        return $result;
     }
 }
