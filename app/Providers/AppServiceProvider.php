@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\CdekApiService;
+use App\Services\CalculateItemDimensions;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(CdekApiService::class, function ($app) {
-            return new CdekApiService();
+            return new CdekApiService($app->make(CalculateItemDimensions::class));
         });
     }
 
