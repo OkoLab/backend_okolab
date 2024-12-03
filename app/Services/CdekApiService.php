@@ -7,15 +7,15 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Client\PendingRequest;
 use App\Services\CalculateItemDimensions;
+use Illuminate\Support\Facades\Log;
 use App\Types\Parcel;
 use Exception;
 
 class CdekApiService
 {
     private $token;
-    protected CalculateItemDimensions $calculateItemDimensions;
 
-    public function __construct(CalculateItemDimensions $calculateItemDimensions)
+    public function __construct(protected CalculateItemDimensions $calculateItemDimensions)
     {
         $this->token = $this->getNewToken();
         $this->calculateItemDimensions = $calculateItemDimensions;
@@ -92,40 +92,22 @@ class CdekApiService
                         //'type' => 1,
                         'tariff_code' => 139, // Посылка дверь-дверь
                         'from_location' => [
-                            "code" => 270
-                            //"city" => "Москва"
+                            "code" => $locations['location_from']
                         ],
                         'to_location' => [
-                            "code" => 44
-                            //"city" => "Москва"
+                            "code" => $locations['location_to']
                         ],
-                        "packages" => [
-                            [
-                                "height" => 10,
-                                "length" => 10,
-                                "weight" => 4000,
-                                "width" => 10
-                            ]
-                        ]
+                        "packages" => $some_packages
 
                         // 'services' => [
                         //     'code' => 1
                         // ],
-                        //'packages' => $some_packages
                     ]);
-
+            info($response);
             return $response;
         } catch (Exception $e) {
             throw new Exception("Can't get cities suggest from CDEK service!");
         }
-
-        //return $locations;
-        // $volume = $calculateItemDimensions->getTotalDimensions($deviceAmount);
-        // $response = Http::withToken($this->token)->retry(2, 0, function (Exception $exception, PendingRequest $request) {
-
-        //     if (!$exception instanceof RequestException || $exception->response->status() !== 401) {
-        //         return false;
-        // }
     }
 
 
