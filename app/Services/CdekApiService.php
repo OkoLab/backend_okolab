@@ -64,8 +64,6 @@ class CdekApiService
     {
         list($deviceAmount, $locations, $cost_sum) = $this->splitDeviceAmountAndLocations($request->all());
 
-        Log::debug($cost_sum);
-
         /**
          * @var Parcel $parcel
          */
