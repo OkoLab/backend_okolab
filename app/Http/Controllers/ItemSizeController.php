@@ -16,6 +16,6 @@ class ItemSizeController extends Controller
     public function __invoke(Request $request, CdekApiService $cdekApiService)
     {
         $deviceAmount = json_decode($cdekApiService->calculatorTariff($request));
-        return response()->json($deviceAmount->total_sum, 200);
+        return response()->json(ceil($deviceAmount->total_sum), 200);
     }
 }

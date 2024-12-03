@@ -8,6 +8,7 @@ use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Client\PendingRequest;
 use App\Services\CalculateItemDimensions;
 use Illuminate\Support\Facades\Log;
+use App\Models\DevicesBoxSize;
 use App\Types\Parcel;
 use Exception;
 
@@ -61,7 +62,9 @@ class CdekApiService
 
     public function calculatorTariff(Request $request)
     {
-        list($deviceAmount, $locations) = $this->splitDeviceAmountAndLocations($request->all());
+        list($deviceAmount, $locations, $cost_sum) = $this->splitDeviceAmountAndLocations($request->all());
+
+        Log::debug($cost_sum);
 
         /**
          * @var Parcel $parcel
@@ -89,7 +92,7 @@ class CdekApiService
                 return true;
 
             })->post(env('CDEK_CLIENT') . '/calculator/tariff', [
-                        //'type' => 1,
+                        'type' => 1,
                         'tariff_code' => 139, // Посылка дверь-дверь
                         'from_location' => [
                             "code" => $locations['location_from']
@@ -101,7 +104,7 @@ class CdekApiService
                         'services' => [
                             [
                                 "code" => "INSURANCE",
-                                "parameter" => "35000"
+                                "parameter" => $cost_sum
                             ]
                         ],
                     ]);
@@ -117,15 +120,20 @@ class CdekApiService
     {
         $deviceAmount = [];
         $locations = [];
+        $cost_sum = 0;
 
         foreach ($original as $key => $value) {
             if ('location_to' === $key || 'location_from' === $key) {
                 $locations[$key] = $value;
             } else {
                 $deviceAmount[$key] = $value;
+                $deviceBoxSize = DevicesBoxSize::where('article', $key)->first();
+                if ($deviceBoxSize) {
+                    $cost_sum += $deviceBoxSize->cost * $value;
+                }
             }
         }
 
-        return [$deviceAmount, $locations];
+        return [$deviceAmount, $locations, $cost_sum];
     }
 }
