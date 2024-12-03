@@ -97,11 +97,13 @@ class CdekApiService
                         'to_location' => [
                             "code" => $locations['location_to']
                         ],
-                        "packages" => $some_packages
-
-                        // 'services' => [
-                        //     'code' => 1
-                        // ],
+                        "packages" => $some_packages,
+                        'services' => [
+                            [
+                                "code" => "INSURANCE",
+                                "parameter" => "35000"
+                            ]
+                        ],
                     ]);
             info($response);
             return $response;
