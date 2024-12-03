@@ -70,7 +70,6 @@ class CdekApiService
         $parcel = $this->calculateItemDimensions->getTotalDimensions($deviceAmount);
         $some_packages = [];
 
-        //$result = new Parcel($side_size, $side_size, $side_size, $item_weight, $number_of_items);
         for ($i = 0; $i < $parcel->number; $i++) {
             $package = [];
             $package['length'] = $parcel->length;
