@@ -4,9 +4,10 @@ use App\Http\Controllers\DeviceBoxSizeController;
 use App\Http\Controllers\ItemSizeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PackingBoxSizeController;
+use App\Http\Controllers\CdekApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Services\CdekApiService;
+
 
 Route::get('/user', function (Request $request) {
     return response()->json([
@@ -28,7 +29,7 @@ Route::post('/item_size', ItemSizeController::class)->middleware('auth:sanctum')
 
 /** Cdek API */
 //Route::get('/location/suggest/cities?name={name}', [CdekApiService::class, 'locationSuggestCities']);
-Route::get('/location/suggest/cities', [CdekApiService::class, 'locationSuggestCities']);
+Route::get('/location/suggest/cities', [CdekApiController::class, 'suggestCities'])->middleware('auth:sanctum');
 
 
 
