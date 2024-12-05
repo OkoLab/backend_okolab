@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Log;
 use App\Models\DevicesBoxSize;
 use App\Types\Parcel;
 use Exception;
-use Illuminate\Http\JsonResponse;
 
 class CdekApiService
 {
