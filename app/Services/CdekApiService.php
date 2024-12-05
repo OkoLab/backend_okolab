@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\DevicesBoxSize;
 use App\Types\Parcel;
 use Exception;
+use Illuminate\Http\JsonResponse;
 
 class CdekApiService
 {
@@ -37,10 +38,9 @@ class CdekApiService
         }
     }
 
-    public function locationSuggestCities(Request $request)
+    public function locationSuggestCities(string $name)
     {
         try {
-            $name = $request->query('name');
             $response = Http::withToken($this->token)->retry(2, 0, function (Exception $exception, PendingRequest $request) {
 
                 if (!$exception instanceof RequestException || $exception->response->status() !== 401) {
@@ -54,6 +54,7 @@ class CdekApiService
                         'country_code' => 'RU'
                     ]);
 
+            info($response);
             return $response;
         } catch (Exception $e) {
             throw new Exception("Can't get cities suggest from CDEK service!");
