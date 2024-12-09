@@ -72,9 +72,9 @@ class CdekApiService
 
         for ($i = 0; $i < $parcel->number; $i++) {
             $package = [];
-            $package['length'] = $parcel->length;
-            $package['width'] = $parcel->width;
-            $package['height'] = $parcel->height;
+            $package['length'] = $parcel->length/10;
+            $package['width'] = $parcel->width/10;
+            $package['height'] = $parcel->height/10;
             $package['weight'] = $parcel->weight;
             $some_packages[] = $package;
         }
