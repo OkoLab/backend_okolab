@@ -48,12 +48,12 @@ class CdekApiService
                 $request->withToken($this->getNewToken());
                 return true;
 
-            })->get(env('CDEK_CLIENT') . '/location/suggest/cities', [
+            })->withQueryParameters([
                         'name' => $name,
                         'country_code' => 'RU'
-                    ]);
+                    ])
+                ->get(env('CDEK_CLIENT') . '/location/suggest/cities');
 
-            info($response);
             return $response;
         } catch (Exception $e) {
             throw new Exception("Can't get cities suggest from CDEK service!");
