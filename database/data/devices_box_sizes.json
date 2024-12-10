@@ -1,5 +1,15 @@
 [
-    {"article": "1300", "name": "Приемник Д-1", "length": 37, "width": 21, "height": 7, "weight": 1300, "cost": 7990 },
-    {"article": "2300", "name": "Приемник Д-3", "length": 37, "width": 21, "height": 7, "weight": 1300, "cost": 4990 }
+    {"article": "2300", "name": "Приемник Д-3", "length": 370, "width": 210, "height": 70, "weight": 1300, "cost": 4990 },
+    {"article": "1600", "name": "Приемник Д-2", "length": 86, "width": 43, "height": 15, "weight": 53, "cost": 2950 },
+    {"article": "0200", "name": "Кнопка К4", "length": 82, "width": 65, "height": 28, "weight": 85, "cost": 790 },
+    {"article": "6600", "name": "Пейджер П-10", "length": 55, "width": 45, "height": 18, "weight": 50, "cost": 3990 },
+    {"article": "6900", "name": "Пейджер П-12", "length": 55, "width": 45, "height": 18, "weight": 50, "cost": 6290 },
+    {"article": "6800", "name": "Пейджер П-14", "length": 55, "width": 45, "height": 18, "weight": 50, "cost": 7990 },
+    {"article": "0080", "name": "Ретранслятор У-1", "length": 153, "width": 82, "height": 29, "weight": 200, "cost": 5790 },
+    {"article": "0560", "name": "Кнопка К7,К6,К21,К22,К23", "length": 60, "width": 60, "height": 28, "weight": 45, "cost": 650 },
+    {"article": "0310", "name": "Кнопка К17,К18,К19,К20,К10,К11", "length": 65, "width": 65, "height": 17, "weight": 37, "cost": 790 },
+    {"article": "0700", "name": "Кнопка К8,К9", "length": 60, "width": 60, "height": 18, "weight": 27, "cost": 690 },
+    {"article": "0110", "name": "Кнопка К5, К15", "length": 86, "width": 86, "height": 18, "weight": 79, "cost": 790 },
+    {"article": "0590", "name": "Кнопка К26", "length": 53, "width": 53, "height": 17, "weight": 40, "cost": 650 },
+    {"article": "1300", "name": "Приемник Д-1", "length": 37, "width": 21, "height": 7, "weight": 1300, "cost": 7990 }
 ]
-
