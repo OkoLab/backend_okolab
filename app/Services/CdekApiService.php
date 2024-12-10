@@ -72,9 +72,9 @@ class CdekApiService
 
         for ($i = 0; $i < $parcel->number; $i++) {
             $package = [];
-            $package['length'] = $parcel->length/10;
-            $package['width'] = $parcel->width/10;
-            $package['height'] = $parcel->height/10;
+            $package['length'] = ceil($parcel->length * 0.1);
+            $package['width'] = ceil($parcel->width * 0.1);
+            $package['height'] = ceil($parcel->height * 0.1);
             $package['weight'] = $parcel->weight;
             $some_packages[] = $package;
         }
@@ -105,10 +105,9 @@ class CdekApiService
                             ]
                         ],
                     ]);
-            info($response);
             return $response;
         } catch (Exception $e) {
-            throw new Exception("Can't get cities suggest from CDEK service!");
+            throw new Exception("Can't calculate tariff!");
         }
     }
 

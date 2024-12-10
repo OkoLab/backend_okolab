@@ -14,7 +14,7 @@ class CalculateItemDimensions
 
     public function __construct()
     {
-        $this->default_box_size = new Dimensions(37, 21, 7);
+        $this->default_box_size = new Dimensions(370, 210, 70);
     }
 
     // $selected_product_articles - {"article": "колисечество оборудования", },"2300":8}
