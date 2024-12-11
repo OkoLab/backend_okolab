@@ -3,8 +3,8 @@
 use App\Http\Controllers\DeviceBoxSizeController;
 use App\Http\Controllers\ItemSizeController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PackingBoxSizeController;
 use App\Http\Controllers\CdekApiController;
+use App\Http\Controllers\CalculateTariffController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +25,8 @@ Route::get('/link', function (Request $request) { return response()->json(['mess
 
 // TODO : сделать ->middleware('auth:sanctum')
 Route::resource('/deviceboxsizes', DeviceBoxSizeController::class);
-Route::post('/calculate_tariff', ItemSizeController::class)->middleware('auth:sanctum');
+Route::post('/calculate_tariff', CalculateTariffController::class)->middleware('auth:sanctum');
+//Route::post('/calculate_tariff', ItemSizeController::class)->middleware('auth:sanctum');
 
 
 /** Cdek API */
