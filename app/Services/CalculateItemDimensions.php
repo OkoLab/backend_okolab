@@ -41,12 +41,6 @@ class CalculateItemDimensions
         $side_size = ceil(pow($item_volume, 1 / 3));
 
         $result = new Parcel($side_size, $side_size, $side_size, $item_weight, $number_of_items);
-        //$json = json_encode($result);
-
-        // info('side_size: ' . $side_size);
-        // info('number_of_items: ' . $number_of_items);
-        // info('item_weight: ' . $item_weight);
-        // info('json: ' . $json);
 
         return $result;
     }
