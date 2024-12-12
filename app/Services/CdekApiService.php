@@ -107,7 +107,7 @@ class CdekApiService
                     ]);
             return $response;
         } catch (Exception $e) {
-            throw new Exception("Can't calculate tariff!");
+            throw new Exception("Can't calculate tariff!" . $e->getMessage());
         }
     }
 

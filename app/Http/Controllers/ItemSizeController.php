@@ -2,20 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\CdekApiService;
 use Illuminate\Http\Request;
+use App\Services\CalculateItemDimensions;
+use App\Types\Parcel;
 use Illuminate\Support\Facades\Log;
 
 class ItemSizeController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
-
-    //public function __invoke(CalculateItemDimensions $calculateItemDimensions, Request $request)
-    public function __invoke(Request $request, CdekApiService $cdekApiService)
+    public function __invoke(Request $request, CalculateItemDimensions $calculateItemDimensions)
     {
-        $deviceAmount = json_decode($cdekApiService->calculatorTariff($request));
-        return response()->json(ceil($deviceAmount->total_sum), 200);
+        /**
+         * @var Parcel $parcel
+         */
+        $parcel = $calculateItemDimensions->getTotalDimensions($request->all());
+
+        $parcelJson = json_encode([
+            'length' => $parcel->length,
+            'width' => $parcel->width,
+            'height' => $parcel->height,
+            'weight' => $parcel->weight,
+            'number' => $parcel->number
+        ]);
+
+        //return response()->json($parcel, 200);
+        return response()->json($parcelJson, 200);
     }
 }

@@ -26,7 +26,7 @@ Route::get('/link', function (Request $request) { return response()->json(['mess
 // TODO : сделать ->middleware('auth:sanctum')
 Route::resource('/deviceboxsizes', DeviceBoxSizeController::class);
 Route::post('/calculate_tariff', CalculateTariffController::class)->middleware('auth:sanctum');
-//Route::post('/calculate_tariff', ItemSizeController::class)->middleware('auth:sanctum');
+Route::post('/item_size', ItemSizeController::class)->middleware('auth:sanctum');
 
 
 /** Cdek API */
