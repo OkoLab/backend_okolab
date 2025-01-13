@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\MoySklad\Entities;
+namespace App\Services\Sklad\MoySklad\Entities;
 
-use App\Services\MoySklad\Data\Abstracts\ContactInformationData;
+use App\Services\Sklad\MoySklad\Data\Abstracts\ContactInformationData;
 use InvalidArgumentException;
 
 class InvoiceoutEntity

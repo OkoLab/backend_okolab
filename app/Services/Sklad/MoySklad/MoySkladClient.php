@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services\MoySklad;
+namespace App\Services\Sklad\MoySklad;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\Client\RequestException;
-use App\Services\MoySklad\Exceptions\InvalidTokenException;
+use App\Services\Sklad\MoySklad\Exceptions\InvalidTokenException;
 use Exception;
 
 

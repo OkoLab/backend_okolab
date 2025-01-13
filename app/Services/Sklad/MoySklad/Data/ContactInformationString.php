@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\MoySklad\Data;
+namespace App\Services\Sklad\MoySklad\Data;
 
 use InvalidArgumentException;
 

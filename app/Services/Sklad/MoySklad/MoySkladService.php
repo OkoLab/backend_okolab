@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\MoySklad;
+namespace App\Services\Sklad\MoySklad;
 
-use App\Services\MoySklad\MoySkladConfig;
-use App\Services\MoySklad\Actions\GetInvoiceoutAction;
-use App\Services\MoySklad\Entities\InvoiceoutEntity;
-use App\Services\MoySklad\Data\CounterpartyString;
+use App\Services\Sklad\MoySklad\MoySkladConfig;
+use App\Services\Sklad\MoySklad\Actions\GetInvoiceoutAction;
+use App\Services\Sklad\MoySklad\Entities\InvoiceoutEntity;
+use App\Services\Sklad\MoySklad\Data\CounterpartyString;
 
 class MoySkladService
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\MoySklad\Entities;
+namespace App\Services\Sklad\MoySklad\Entities;
 
 class ProductEntity
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Services\MoySklad\Actions;
+namespace App\Services\Sklad\MoySklad\Actions;
 
-use App\Services\MoySklad\Data\Abstracts\CounterpartyData;
-use App\Services\MoySklad\Data\ContactInformationString;
-use App\Services\MoySklad\Entities\InvoiceoutEntity;
-use App\Services\MoySklad\MoySkladService;
-use App\Services\MoySklad\MoySkladClient;
-use App\Services\MoySklad\Entities\ProductColletion;
-use App\Services\MoySklad\Entities\ProductEntity;
-use App\Services\MoySklad\Exceptions\MoySkladException;
+use App\Services\Sklad\MoySklad\Data\CounterpartyData;
+use App\Services\Sklad\MoySklad\Data\ContactInformationString;
+use App\Services\Sklad\MoySklad\Entities\InvoiceoutEntity;
+use App\Services\Sklad\MoySklad\MoySkladService;
+use App\Services\Sklad\MoySklad\MoySkladClient;
+use App\Services\Sklad\MoySklad\Entities\ProductColletion;
+use App\Services\Sklad\MoySklad\Entities\ProductEntity;
+use App\Services\Sklad\MoySklad\Exceptions\MoySkladException;
 use Exception;
 
 class GetInvoiceoutAction
@@ -35,7 +35,7 @@ class GetInvoiceoutAction
                 ]);
 
             if ((empty($response['rows']) || $response["meta"]['size'] == 0)) {
-                throw new MoySkladException("Can't get invoiceout to MoySklad service!");
+                throw new MoySkladException("Can't get invoiceout to Sklad\MoySklad service!");
             }
 
             $this->invoiceoutEntity = new InvoiceoutEntity();
@@ -47,7 +47,7 @@ class GetInvoiceoutAction
 
             return $this;
         } catch (Exception $e) {
-            throw new MoySkladException("Don't find invoiceout to MoySklad service!");
+            throw new MoySkladException("Don't find invoiceout to Sklad\MoySklad service!");
         }
 
     }
@@ -78,7 +78,7 @@ class GetInvoiceoutAction
 
             return $this;
         } catch (Exception $e) {
-            throw new MoySkladException("Can't get invoiceout to MoySklad service!");
+            throw new MoySkladException("Can't get invoiceout to Sklad\MoySklad service!");
         }
     }
 

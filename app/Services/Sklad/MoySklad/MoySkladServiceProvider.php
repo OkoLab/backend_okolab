@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Providers;
+namespace App\Services\Sklad\MoySklad;
 
-use App\Services\MoySklad\MoySkladConfig;
-use App\Services\MoySklad\MoySkladService;
 use Illuminate\Support\ServiceProvider;
 
 class MoySkladServiceProvider extends ServiceProvider
 {
-
+    /**
+     * Register services.
+     */
     public function register(): void
     {
         $this->app->bind(MoySkladService::class, function () {
@@ -23,6 +23,9 @@ class MoySkladServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * Bootstrap services.
+     */
     public function boot(): void
     {
         //

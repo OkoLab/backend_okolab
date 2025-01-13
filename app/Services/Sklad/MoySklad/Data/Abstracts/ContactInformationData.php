@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\MoySklad\Data\Abstracts;
+namespace App\Services\Sklad\MoySklad\Data\Abstracts;
 
 abstract class ContactInformationData
 {

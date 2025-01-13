@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\MoySklad\Exceptions;
+namespace App\Services\Sklad\MoySklad\Exceptions;
 
 class InvalidTokenException extends MoySkladException
 {
