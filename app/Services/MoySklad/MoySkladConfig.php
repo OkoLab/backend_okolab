@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Sklad\MoySklad;
+namespace App\Services\MoySklad;
 
 class MoySkladConfig
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\Sklad\MoySklad\Data;
+namespace App\Services\MoySklad\Data;
 
 use InvalidArgumentException;
 
-class ContactInformationString extends Abstracts\ContactInformationData
+class ContactInformationString extends ContactInformationData
 {
     public function __construct(private string $shippingScript) {
         $contactInformation = preg_replace('/.*?#/', '', $this->shippingScript);

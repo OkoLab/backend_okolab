@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Services\Sklad\MoySklad\Actions;
+namespace App\Services\MoySklad\Actions;
 
-use App\Services\Sklad\MoySklad\Data\CounterpartyData;
-use App\Services\Sklad\MoySklad\Data\ContactInformationString;
-use App\Services\Sklad\MoySklad\Entities\InvoiceoutEntity;
-use App\Services\Sklad\MoySklad\MoySkladService;
-use App\Services\Sklad\MoySklad\MoySkladClient;
-use App\Services\Sklad\MoySklad\Entities\ProductColletion;
-use App\Services\Sklad\MoySklad\Entities\ProductEntity;
-use App\Services\Sklad\MoySklad\Exceptions\MoySkladException;
+use App\Services\MoySklad\Data\CounterpartyData;
+use App\Services\MoySklad\Data\ContactInformationString;
+use App\Services\MoySklad\Entities\InvoiceoutEntity;
+use App\Services\MoySklad\MoySkladService;
+use App\Services\MoySklad\MoySkladClient;
+use App\Services\MoySklad\Entities\ProductColletion;
+use App\Services\MoySklad\Entities\ProductEntity;
+use App\Services\MoySklad\Exceptions\MoySkladException;
 use Exception;
 
 class GetInvoiceoutAction

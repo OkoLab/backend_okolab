@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Services\Sklad\MoySklad;
+namespace App\Services\MoySklad;
 
+use App\Services\MoySklad\Parser\Parser;
 use Illuminate\Support\ServiceProvider;
 
 class MoySkladServiceProvider extends ServiceProvider
@@ -15,10 +16,8 @@ class MoySkladServiceProvider extends ServiceProvider
             $config = config('services.moysklad');
 
             return new MoySkladService(
-                new MoySkladConfig(
-                    login: $config['login'],
-                    password: $config['password'],
-                ),
+                new MoySkladConfig(login: $config['login'], password: $config['password']),
+                new Parser()
             );
         });
     }

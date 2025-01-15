@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Sklad\MoySklad\Exceptions;
+namespace App\Services\MoySklad\Exceptions;
 
 use Exception;
 
