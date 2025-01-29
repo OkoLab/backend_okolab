@@ -38,7 +38,7 @@ class MoySkladClient
     }
 
     //TODO: сделать private
-    private function getNewToken(): string
+    public function getNewToken(): string
     {
         $response = $this->client()
             ->withBasicAuth(
@@ -70,8 +70,8 @@ class MoySkladClient
     {
 
         $response = $this->withToken()->post($url, $data);
-        $response = $response->json();
 
+        $response = $response->json();
         return $response;
     }
 
