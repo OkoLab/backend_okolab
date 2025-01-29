@@ -8,4 +8,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/php', function () {
+    return view('phpinfo');
+});
+
 // Route::get('/cities/{name}', [CdekApiService::class, 'locationSuggestCities']);

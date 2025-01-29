@@ -7,7 +7,6 @@ use Illuminate\Http\Client\PendingRequest;
 use App\Services\Cdek\Exceptions\InvalidTokenException;
 use Illuminate\Http\Client\RequestException;
 use App\Services\Cdek\Exceptions\CdekException;
-use Illuminate\Support\Facades\Log;
 use Exception;
 
 class CdekClient
@@ -65,6 +64,17 @@ class CdekClient
         });
     }
 
+    public function get(string $url): array
+    {
+        try {
+            $response = $this->withToken()->get($url);
+            return $response->json();
+
+        } catch (Exception $e) {
+            throw new CdekException($e->getMessage());
+        }
+    }
+
     public function post(string $url, array $data): array
     {
         try {
@@ -72,18 +82,7 @@ class CdekClient
             return $response->json();
 
         } catch (Exception $e) {
-            throw new CdekException("Request failed");
-            // Log::error($e->getMessage());
-            // return ['error' => 'Request failed'];
+            throw new CdekException($e->getMessage());
         }
     }
-
-    // public function get(string $url, array $data): array
-    // {
-    //     $response = $this->withToken()->get($url, $data);
-
-    //     return $response->json();
-    // }
-
-
 }

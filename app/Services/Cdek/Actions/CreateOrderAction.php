@@ -4,16 +4,15 @@ namespace App\Services\Cdek\Actions;
 
 use App\Services\Cdek\CdekClient;
 use App\Services\Cdek\CdekService;
-
-use App\Services\Cdek\Entities\OrderEntity;
-
-use Exception;
+use App\Services\Cdek\Data\OrderData;
+use App\Services\Sklad\Contracts\InvoiceInterface;
+use App\Services\Cdek\Data\Factory\DataFactory;
+use App\Casts\Number\Number;
+use App\Services\Cdek\Exceptions\CdekException;
 
 class CreateOrderAction
 {
-    public function __construct(
-        private CdekService $cdekService,
-    ) {
+    public function __construct(private CdekService $cdekService) {
     }
 
     public static function make(CdekService $cdekService): static
@@ -21,80 +20,40 @@ class CreateOrderAction
         return new static($cdekService);
     }
 
-    public function run(): OrderEntity
+    public function run(InvoiceInterface $invoiceoutFromSkladEntity): mixed //OrderEntity
     {
-        $jsonString = '{
-            "number" : "ddOererre7450813980068",
-            "comment" : "Новый заказ",
-            "delivery_recipient_cost" : {
-                "value" : 50
-            },
-            "delivery_recipient_cost_adv" : [ {
-                "sum" : 3000,
-                "threshold" : 200
-            } ],
-            "from_location" : {
-                "code" : "44",
-                "fias_guid" : "",
-                "postal_code" : "",
-                "longitude" : "",
-                "latitude" : "",
-                "country_code" : "",
-                "region" : "",
-                "sub_region" : "",
-                "city" : "Москва",
-                "kladr_code" : "",
-                "address" : "пр. Ленинградский, д.4"
-            },
-            "to_location" : {
-                "code" : "270",
-                "fias_guid" : "",
-                "postal_code" : "",
-                "longitude" : "",
-                "latitude" : "",
-                "country_code" : "",
-                "region" : "",
-                "sub_region" : "",
-                "city" : "Новосибирск",
-                "kladr_code" : "",
-                "address" : "ул. Блюхера, 32"
-            },
-            "packages" : [ {
-                "number" : "bar-001",
-                "comment" : "Упаковка",
-                "height" : 10,
-                "items" : [ {
-                    "ware_key" : "00055",
-                    "payment" : {
-                        "value" : 3000
-                    },
-                    "name" : "Товар",
-                    "cost" : 300,
-                    "amount" : 2,
-                    "weight" : 700,
-                    "url" : "www.item.ru"
-                } ],
-            "length" : 10,
-            "weight" : 4000,
-            "width" : 10
-            } ],
-            "recipient" : {
-                "name" : "Иванов Иван",
-                "phones" : [ {
-                "number" : "+79134637228"
-            } ]
-            },
-            "sender" : {
-                "name" : "Петров Петр"
-            },
-            "services" : [ {
-                "code" : "SECURE_PACKAGE_A2"
-            } ],
-            "tariff_code" : 139
-        }';
-        $data = json_decode($jsonString, true);
+        $recipient = DataFactory::createContragentData($invoiceoutFromSkladEntity->agent);
+        $to_location = DataFactory::createLocationData($invoiceoutFromSkladEntity->agent);
+        $services[] = DataFactory::createServicesData(  new Number($invoiceoutFromSkladEntity->sum));
+        $packages = DataFactory::createPackagesData($invoiceoutFromSkladEntity);
 
+
+        /**
+         * @var OrderData $order
+         */
+        $order = new OrderData(
+            $invoiceoutFromSkladEntity->invoice_name,
+            $recipient,
+            $to_location,
+            $packages,
+            $invoiceoutFromSkladEntity->comment,
+            $services
+        );
+
+        $data = json_encode($order);
+        $data = json_decode($data, true);
         $response = CdekClient::make($this->cdekService)->post('/orders', $data);
-        return new OrderEntity(uuid: $response['entity']['uuid']);
+
+        if (isset($response['requests']['errors'])) {
+            throw new CdekException($response['requests']['errors']);
+        }
+
+        $response = CdekClient::make($this->cdekService)->get('/orders/' . $response['entity']['uuid']);
+
+        if (isset($response['requests']['errors'])) {
+            throw new CdekException($response['requests']['errors']);
+        }
+
+        return $response;
     }
 }

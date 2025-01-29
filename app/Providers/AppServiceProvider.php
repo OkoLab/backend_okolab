@@ -9,21 +9,15 @@ use Illuminate\Contracts\Foundation\Application;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
+        bcscale(8);
         $this->app->singleton(CdekApiService::class, function (Application $app) {
             return new CdekApiService($app->make(CalculateItemDimensions::class));
         });
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
-        //
     }
 }
