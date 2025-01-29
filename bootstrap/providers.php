@@ -2,5 +2,8 @@
 
 return [
     App\Providers\AppServiceProvider::class,
-    App\Providers\MoySkladServiceProvider::class,
+    App\Providers\CdekServiceProvider::class,
+    App\Services\Dimension\DimensionServiceProvider::class,
+    App\Services\Cdek\CdekServiceProvider::class,
+    App\Services\Sklad\MoySklad\MoySkladServiceProvider::class,
 ];

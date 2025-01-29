@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Client\PendingRequest;
 use App\Services\CalculateItemDimensions;
-use Illuminate\Support\Facades\Log;
 use App\Models\DevicesBoxSize;
 use App\Types\Parcel;
 use Exception;

@@ -1,0 +1,7 @@
+[
+    {"article": "2300", "code": "SC-R10", "name": "Приемник Д-3", "length": 370, "width": 210, "height": 70, "weight": 1300, "amount": 4990 },
+    {"article": "1600", "code": "SC-R11", "name": "Приемник Д-2", "length": 86, "width": 43, "height": 15, "weight": 530, "amount": 2950 },
+    {"article": "5000", "code": "SC-R50", "name": "Приемник Д-11", "length": 370, "width": 210, "height": 70, "weight": 1300, "amount": 8900 },
+    {"article": "6900", "code": "APE6900", "name": "Пейджер П-12", "length": 55, "width": 45, "height": 18, "weight": 50, "amount": 6290 },
+    {"article": "0590", "code": "APE590", "name": "Кнопка К26", "length": 53, "width": 53, "height": 17, "weight": 40, "amount": 650 }
+]

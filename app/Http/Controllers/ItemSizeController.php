@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\CalculateItemDimensions;
 use App\Types\Parcel;
-use Illuminate\Support\Facades\Log;
 
 class ItemSizeController extends Controller
 {
@@ -24,7 +23,6 @@ class ItemSizeController extends Controller
             'number' => $parcel->number
         ]);
 
-        //return response()->json($parcel, 200);
         return response()->json($parcelJson, 200);
     }
 }
